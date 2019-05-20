@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col-8">
+      <h3>Registrar pedido <small>Burger Beer</small></h3>
+      <div class="row-4">
+      <button class="btn btn-outline-danger" [routerLink]= "['/carrito']">Regresar</button>
+
+      <hr>
+    </div>
+  </div>
+</div>
+
+
+<div class="row animated fadeIn">
+  <div class="col-md-12">
+    <form [(ngModel)]="form">
+      <h5>Dirección</h5>
+      <hr>
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text" class="form-control" placeholder="Calle - Número" name="calle" ngModel required>
+        <label>Ciudad</label>
+        <select class="form-control">
+          <option value="Cordoba">Córdoba</option>
+          <option value="Rosario">Rosario</option>
+          <option value="Buenos Aires">Buenos Aires</option>
+        </select>
+        <label>Referencias (opcional)</label>
+        <textarea class="form-control" placeholder="Referencias"></textarea>
+
+      </div>
+      <h5>Entrega</h5>
+      <hr>
+      <div class="form-group">
+          <label>Hora de entrega</label>
+          <select class="form-control" name="hora" ngModel  required>
+              <option selected="null" disabled="disabled"></option>
+            <option value="Lo antes posible">Lo antes posible</option>
+            <option value="Entre 22:00-23:00">Entre 22:00-23:00</option>
+            <option value="Entre 23:00-00:00">Entre 23:00-00:00</option>
+            <option value="Entre 00:00-01:00">Entre 00:00-01:00</option>
+
+          </select>
+          
+  
+        </div>
+      <h5>Forma de pago</h5>
+      <hr>
+      <label>Forma de pago</label>
+        <div class="form-group row">  
+        <div class="col-4">
+          <select [(ngModel)]="seleccionado" (change)="capturar(seleccionado)" class="form-control" name="select" ngModel  required>
+            <option value="Tarjeta">Tarjeta de crédito</option>
+            <option value="Efectivo">Efectivo</option>
+          </select>
+        </div>
+
+          <div class="col-2" *ngIf="seleccionado == 'Tarjeta'"  >
+          <label> Número de tarjeta</label>
+          </div>
+          <div class="col-4" *ngIf="seleccionado == 'Tarjeta'">
+          <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" [(ngModel)]="tarjeta" name="tarjeta" ngModel required>
+        </div>
+        <div class="col-2" *ngIf="seleccionado == 'Tarjeta'">          
+          <button (click)="validarTarjeta(tarjeta)" type="button" class= "btn btn-outline-success">Validar</button>
+        </div>
+        <div class="col-2" *ngIf="seleccionado == 'Efectivo'"  >
+            <label>Con cuánto vas a abonar?</label>
+            </div>
+            <div class="col-4" *ngIf="seleccionado == 'Efectivo'">
+            <input type="text" class="form-control" placeholder="$" name="$" ngModel  required>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="valido" >
+            <div class="col-2">
+                <label>Nombre del titular</label>
+                </div>
+                <div class="col-4" >
+                <input type="text" class="form-control" placeholder="Nombre" name="nom" ngModel  required>
+              </div>
+              <div class="col-2">
+                  <label>Fecha de expiracion</label>
+                  </div>
+                  <div class="col-4" >
+                  <input type="text" class="form-control" placeholder="MM/YY"  name="fec" ngModel required>
+                </div>
+              
+        </div>
+        <div class="form-group row" *ngIf="valido" >
+            <div class="col-2">
+                <label>Código de seguridad</label>
+                </div>
+                <div class="col-4" >
+                <input type="text" class="form-control" placeholder="XXX" name="cod" ngModel  required>
+              </div>
+          </div>
+
+
+        
+        <div *ngIf="valido == false" class="alert alert-danger" role="alert">
+          ¡Solo se puede abonar con tarjeta Visa! Revise el número ingresado. <button (click)="volver()" type="button" class="btn btn-outline-danger">OK</button>
+        </div>
+
+
+        <div class="form-group row">
+          
+          <button type="submit" class="btn btn-outline-success">Generar pedido</button>
+          
+        </div>
+        <p></p>
+
+
+
+
+    </form>
+</div>
+</div>

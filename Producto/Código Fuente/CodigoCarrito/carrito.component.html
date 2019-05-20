@@ -1,0 +1,45 @@
+<h1>Carrito<small>Burgeer Beer</small></h1>
+<hr>
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button [disabled] = "!productos.length > 0" 
+    type="button" 
+    class="btn btn-outline-success"
+    [routerLink]= "['/pedido']">Registrar pedido</button>
+    <br><br>
+    <div class="table">
+    
+        <table class="table table-light">
+            <thead class="dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Quitar</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let producto of productos; let i =index">
+                <td>{{i + 1}}</td>
+                <td><i class="fas fa-hamburger"></i>{{producto}}</td>
+                <td>
+                  <button (click)="quitarElemento(i)" class="btn btn-outline-danger">Quitar</button>
+                </td>
+              </tr>
+
+            </tbody>
+        </table>
+        
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+        <div *ngIf="productos.length == 0" class="alert alert-danger" role="alert">
+            Debe agregar al menos un producto para registrar un pedido <button (click)="agregar()" type="button" class="btn btn-outline-success">Agregar</button>
+
+        </div>
+    </div>
+  </div>
+  
+
+</div>
