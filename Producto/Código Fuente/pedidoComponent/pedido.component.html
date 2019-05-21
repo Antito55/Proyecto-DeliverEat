@@ -12,27 +12,29 @@
 
 <div class="row animated fadeIn">
   <div class="col-md-12">
-    <form [(ngModel)]="form">
+    <form (ngSubmit)="guardarCambios(forma)" #forma="ngForm" class="form" novalidate="">
       <h5>Dirección</h5>
       <hr>
       <div class="form-group">
         <label>Dirección</label>
-        <input type="text" class="form-control" placeholder="Calle - Número" name="calle" ngModel required>
+        <input type="text" class="form-control" placeholder="Calle - Número" ngModel name="calle"  #calle="ngModel" required>
+        <div *ngIf="!calle.valid">Debe indicar su calle y número</div>
         <label>Ciudad</label>
-        <select class="form-control">
+        <select class="form-control" ngModel name="ciudad" required #ciudad="ngModel">
+            <div *ngIf="!ciudad.valid">Es necesario indicar la ciudad</div>
           <option value="Cordoba">Córdoba</option>
           <option value="Rosario">Rosario</option>
           <option value="Buenos Aires">Buenos Aires</option>
         </select>
-        <label>Referencias (opcional)</label>
-        <textarea class="form-control" placeholder="Referencias"></textarea>
+        <label>Referencias</label>
+        <textarea class="form-control" placeholder="Referencias (opcional)" ngModel name="ref"></textarea>
 
       </div>
       <h5>Entrega</h5>
       <hr>
       <div class="form-group">
           <label>Hora de entrega</label>
-          <select class="form-control" name="hora" ngModel  required>
+          <select class="form-control" ngModel name="hora" required #hora="ngModel">
               <option selected="null" disabled="disabled"></option>
             <option value="Lo antes posible">Lo antes posible</option>
             <option value="Entre 22:00-23:00">Entre 22:00-23:00</option>
@@ -40,6 +42,7 @@
             <option value="Entre 00:00-01:00">Entre 00:00-01:00</option>
 
           </select>
+          <div *ngIf="!hora.valid">Debe seleccionar la hora de entrega</div>
           
   
         </div>
@@ -48,26 +51,33 @@
       <label>Forma de pago</label>
         <div class="form-group row">  
         <div class="col-4">
-          <select [(ngModel)]="seleccionado" (change)="capturar(seleccionado)" class="form-control" name="select" ngModel  required>
+          <select [(ngModel)]="seleccionado" (change)="capturar(seleccionado)" class="form-control" name="select" #pago="ngModel" required>
             <option value="Tarjeta">Tarjeta de crédito</option>
             <option value="Efectivo">Efectivo</option>
           </select>
+          <div *ngIf="!pago.valid">La forma de pago es requerida</div>
         </div>
 
-          <div class="col-2" *ngIf="seleccionado == 'Tarjeta'"  >
+          <div class="col-2" *ngIf="seleccionado == 'Tarjeta'"ngModel name="tarjeta" requiered  >
           <label> Número de tarjeta</label>
+
           </div>
           <div class="col-4" *ngIf="seleccionado == 'Tarjeta'">
-          <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" [(ngModel)]="tarjeta" name="tarjeta" ngModel required>
+          <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" [(ngModel)]="tarjeta" name="tarjeta" #tjta="ngModel" required>
+          <div *ngIf="!tjta.valid">Debe indicar el número de tarjeta e indicar un número valido</div>
+
         </div>
         <div class="col-2" *ngIf="seleccionado == 'Tarjeta'">          
           <button (click)="validarTarjeta(tarjeta)" type="button" class= "btn btn-outline-success">Validar</button>
+
         </div>
         <div class="col-2" *ngIf="seleccionado == 'Efectivo'"  >
             <label>Con cuánto vas a abonar?</label>
             </div>
             <div class="col-4" *ngIf="seleccionado == 'Efectivo'">
-            <input type="text" class="form-control" placeholder="$" name="$" ngModel  required>
+            <input type="text" class="form-control" placeholder="$" name="$"  ngModel required #importe="ngModel" >
+            <div *ngIf="!importe.valid">El importe es obligatorio</div>
+
           </div>
         </div>
         <div class="form-group row" *ngIf="valido" >
@@ -75,14 +85,17 @@
                 <label>Nombre del titular</label>
                 </div>
                 <div class="col-4" >
-                <input type="text" class="form-control" placeholder="Nombre" name="nom" ngModel  required>
+                <input type="text" class="form-control" placeholder="Nombre" name="nom" ngModel required #nombre="ngModel" >
               </div>
               <div class="col-2">
                   <label>Fecha de expiracion</label>
                   </div>
                   <div class="col-4" >
-                  <input type="text" class="form-control" placeholder="MM/YY"  name="fec" ngModel required>
+                  <input type="text" class="form-control" placeholder="MM/YY"  name="fec" ngModel required #fecha="ngModel" >
                 </div>
+
+                
+
               
         </div>
         <div class="form-group row" *ngIf="valido" >
@@ -90,9 +103,14 @@
                 <label>Código de seguridad</label>
                 </div>
                 <div class="col-4" >
-                <input type="text" class="form-control" placeholder="XXX" name="cod" ngModel  required>
+                <input type="text" class="form-control" placeholder="XXX" name="cod" ngModel  #cod="ngModel" required >
+              </div>
+              <div class="col-4">
+                  
+
               </div>
           </div>
+
 
 
         
@@ -103,14 +121,15 @@
 
         <div class="form-group row">
           
-          <button type="submit" class="btn btn-outline-success">Generar pedido</button>
+          <button type="submit" class="btn btn-outline-success"  [disabled]="!forma.valid" [routerLink]="['/fin']">Generar pedido</button>
           
         </div>
-        <p></p>
+     
 
 
 
 
     </form>
+    
 </div>
 </div>

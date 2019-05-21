@@ -1,25 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pedido',
   templateUrl: './pedido.component.html',
   styleUrls: ['./pedido.component.css']
 })
-export class PedidoComponent implements OnInit {
+export class PedidoComponent  {
   pago:string = '';
   seleccionado:string = '';
   numTjta:string;
   nuevo: string;
   public valido: boolean;
   public esta = "esta";
+  
+  // forma:FormGroup;
   constructor() { 
+    // this.forma = new FormGroup({
+    //   'calle': new FormControl('',Validators.required),
+    //   'ciudad': new FormControl('', Validators.required),
+    //   'hora': new FormControl ('', Validators.required),
+    //   'formaPago': new FormControl('',Validators.required),
+    //   'numeroTjta': new FormControl('', Validators.required),
+    // })
 
   }
 
-  ngOnInit() {
-    console.log(f.valid);
-  }
-
+  
 
   capturar(pago:string) {
     this.pago = pago;
@@ -44,7 +51,9 @@ volver(){
   this.valido = null;
 }
 
-onSubmit(f) {
-        console.log(f.value);
-    }
+guardarCambios(forma: NgForm ){
+  console.log(forma.value)
+}
+
+
 }

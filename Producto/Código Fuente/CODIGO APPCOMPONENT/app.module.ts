@@ -6,14 +6,16 @@ import { AppComponent } from './app.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { APP_ROUTING } from './app.routes';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';  
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FinComponent } from './components/fin/fin.component';  
 
 @NgModule({
   declarations: [
     AppComponent,
     CarritoComponent,
-    PedidoComponent
+    PedidoComponent,
+    FinComponent
     
   ],
   imports: [
@@ -21,7 +23,8 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     APP_ROUTING,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

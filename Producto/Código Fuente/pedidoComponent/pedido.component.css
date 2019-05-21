@@ -1,0 +1,4 @@
+.ng-invalid.ng-pristine:not(form){
+    border: 1px solid red;
+}
+
